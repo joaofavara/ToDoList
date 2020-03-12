@@ -11,9 +11,9 @@ const getTasks = ( async (req, res) => {
 
 const saveTask = ( async (req, res) => {
     try {
-        console.log(req.body);
-        const { title, inDone, softDelete } = req.body;
-        const result = await repositoy.saveTask({title, inDone, softDelete});
+        console.log('req.body >>> ', req.body);
+        const { title, isDone, softDelete } = req.body;
+        const result = await repositoy.saveTask({title, isDone, softDelete});
         console.log(result);
         return res.status(200).json(result);
     } catch(err) {
