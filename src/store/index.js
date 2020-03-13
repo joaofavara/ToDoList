@@ -35,10 +35,12 @@ export default new Vuex.Store({
       await Axios.post('http://localhost:3000/api/task/saveTask', taskToCrate);
     },
     async softDelete ({commit}, id) {
-      await Axios.post('http://localhost:3000/api/task/softDelete', { id });
+      const test = await Axios.post('http://localhost:3000/api/task/softDelete', { id });
+      console.log('Teste ... ', test);
     },
     async updateToDone ({commit}, id) {
-      await Axios.put('http://localhost:3000/api/task/updateToDone', { id });
+      const test = await Axios.put('http://localhost:3000/api/task/updateToDone', { id });
+      console.log('Teste 2 ... ', test);
     }
   },
   modules: {

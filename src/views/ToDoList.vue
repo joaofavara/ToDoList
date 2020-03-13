@@ -1,29 +1,19 @@
 <template>
   <div class="main">
     <div class="to-do-list">
-    <div class="header">
-        <button class="button is-link is-small is-outlined" :disabled="this.typeTask === 'done'" v-on:click="toggleModal()">Create Task</button>
-        <div class="control">
-            <label class="radio">
-                <input type="radio" name="foobar" value="todo" v-model="typeTask">
-                To Do
-            </label>
-            <label class="radio">
-                <input type="radio" name="foobar" value="done" v-model="typeTask">
-                Done
-            </label>
+        <div class="header">
+            <button class="button is-link is-small is-outlined" :disabled="this.typeTask === 'done'" v-on:click="toggleModal()">Create Task</button>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" name="foobar" value="todo" v-model="typeTask">
+                    To Do
+                </label>
+                <label class="radio">
+                    <input type="radio" name="foobar" value="done" v-model="typeTask">
+                    Done
+                </label>
+            </div>
         </div>
-    </div>
-
-    <!-- <div class="box-name">
-             <div class="name">
-                TO DO
-                <button class="button is-link is-small is-outlined" v-on:click="toggleModal()">Create Task</button>
-            </div>
-            <div class="name">
-                DONE
-            </div>
-        </div> -->
         <div class="box-todo">
             <div class="todo" v-for="item in tasks">
                 <span> {{ item.title }} </span>
@@ -75,8 +65,11 @@ export default {
             await this.getTasksToDo();
         },
         async updateToDoneTaks(id) {
+            console.log('Start ...');
             await this.updateToDone(id);
+            console.log('Finished ...');
             await this.getTasksToDo();
+            console.log('Start 2 ...');
         }
     },
     watch: {
@@ -86,7 +79,6 @@ export default {
             } else {
                 this.tasks = this.tasksDone;
             }
-            // console.log(this.typeTask);
         },
     },
     async mounted() {
@@ -94,9 +86,6 @@ export default {
         await this.getTasksDone();
         this.tasks = this.tasksToDo;
     },
-    // created() {
-    //     this.task = this.tasksToDo;
-    // }
 };
 </script>
 
@@ -107,13 +96,11 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border: 1px solid red;
 
         .to-do-list {
             width: 50%;
             height: 70%;
-            border: 1px solid red;
-            overflow-y:scroll;
+            border: 1px solid grey;
 
             .header {
                 display: flex;
@@ -133,24 +120,25 @@ export default {
                     align-items: center;
                     padding: 10px;
                     width: 30%;
-                    border: 1px solid green;
                 }
             }
             
             .box-todo {
                 width: 100%;
-                // padding: 100px;
-                border: 1px solid blue;
+                height: 90%;
+                overflow-y:scroll;
+                border-top: 1px solid black;
 
                 .todo {
                     display: flex;
                     justify-content: space-between;
-                    border: 1px yellow solid;
+                    border: 1px solid grey;
                     margin: 10px;
                     
                     .buttons-todo {
                         display: flex;
                         flex-direction: column;
+                        margin: 5px;
                     }
                 }
             }
