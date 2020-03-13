@@ -1,8 +1,17 @@
 const repositoy = require('../../repository/task');
 
-const getTasks = ( async (req, res) => {
+const getTasksToDo = ( async (req, res) => {
     try {
-        const result = await repositoy.getTasks();
+        const result = await repositoy.getTasksToDo();
+        return res.status(200).json(result);
+    } catch(err) {
+        console.log(err);
+    }
+});
+
+const getTasksDone = ( async (req, res) => {
+    try {
+        const result = await repositoy.getTasksDone();
         return res.status(200).json(result);
     } catch(err) {
         console.log(err);
@@ -23,7 +32,18 @@ const saveTask = ( async (req, res) => {
 
 const softDelete = (async (req, res) => {
     try {
-        const result = await repositoy.findByIdAndUpdate();
+        const { id } = req.body;
+        const result = await repositoy.softDelete(id);
+        return result
+    } catch(err) {
+        console.log(err);
+    }
+});
+
+const updateToDone = (async (req, res) => {
+    try {
+        const { id } = req.body;
+        const result = await repositoy.updateToDone(id);
         return result
     } catch(err) {
         console.log(err);
@@ -31,7 +51,9 @@ const softDelete = (async (req, res) => {
 });
 
 module.exports = {
-    getTasks,
+    getTasksToDo,
+    getTasksDone,
     saveTask,
     softDelete,
+    updateToDone,
 } 

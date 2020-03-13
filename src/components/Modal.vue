@@ -6,8 +6,8 @@
         <div class="control">
           <textarea v-model="textarea" class="textarea is-primary" placeholder="Task ..."></textarea>
         </div>
-        <button class="button is-success is-small is-outlined" v-on:click="createTask()">Create</button>
-        <button class="button is-danger is-small is-outlined" v-on:click="toggleModal()">Cancel</button>
+        <button class="button is-success is-small" v-on:click="createTask()">Create</button>
+        <button class="button is-danger is-small" v-on:click="toggleModal()">Cancel</button>
     </div>
     </div>
     <button class="modal-close is-large" v-on:click="toggleModal()" aria-label="close"></button>
@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss">
     .modal-content {
-       background-color: white;
+       background-color: none;
        width: 60%;
     }
 </style>

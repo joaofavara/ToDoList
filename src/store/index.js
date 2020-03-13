@@ -6,28 +6,39 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    tasks: 'BATATA',
+    tasksToDo: null,
+    tasksDone: null,
   },
   mutations: {
-    getTasks(state, task) {
-      // console.log('mutation: ', tasks);
-      state.tasks = task;
-    }
+    getTasksToDo(state, task) {
+      state.tasksToDo = task;
+    },
+    getTasksDone(state, task) {
+      state.tasksDone = task;
+    },
   },
   actions: {
-    async getTasks({commit}) {
-      const result = await Axios.get('http://localhost:3000/api/task');
-      commit('getTasks', result.data);
+    async getTasksToDo({commit}) {
+      const result = await Axios.get('http://localhost:3000/api/task/toDo');
+      commit('getTasksToDo', result.data);
+    },
+    async getTasksDone({commit}) {
+      const result = await Axios.get('http://localhost:3000/api/task/done');
+      commit('getTasksDone', result.data);
     },
     async saveTask({commit}, taskTitle) {
-      console.log('taskTitle >>> ', taskTitle);
       const taskToCrate = {
         title: taskTitle,
         isDone: false,
         softDelete: false,
       }
-      const teste = await Axios.post('http://localhost:3000/api/task/saveTask', taskToCrate);
-      console.log('taskTitle 2 >>> ', teste);
+      await Axios.post('http://localhost:3000/api/task/saveTask', taskToCrate);
+    },
+    async softDelete ({commit}, id) {
+      await Axios.post('http://localhost:3000/api/task/softDelete', { id });
+    },
+    async updateToDone ({commit}, id) {
+      await Axios.put('http://localhost:3000/api/task/updateToDone', { id });
     }
   },
   modules: {

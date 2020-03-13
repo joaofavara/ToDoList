@@ -1,7 +1,17 @@
 const taskModel = require('../../../database/task/task.model');
 
-const getTasks = ( async () => {
-    return await taskModel.find({});
+const getTasksToDo = ( async () => {
+    return await taskModel.find({
+        isDone: false,
+        softDelete: false,
+    });
+});
+
+const getTasksDone = ( async () => {
+    return await taskModel.find({
+        isDone: true,
+        softDelete: false,
+    });
 });
 
 const saveTask = ( async (payload) => {
@@ -13,12 +23,24 @@ const saveTask = ( async (payload) => {
     });
 });
 
-const softDelete = (async () => {
-    return await taskModel.findByIdAndUpdate({});
+const softDelete = (async (id) => {
+    return await taskModel.findByIdAndUpdate(
+        { _id: id }, 
+        { softDelete: true }
+    );
+});
+
+const updateToDone = (async (id) => {
+    return await taskModel.findByIdAndUpdate(
+        { _id: id }, 
+        { isDone: true }
+    );
 });
 
 module.exports = {
-    getTasks,
+    getTasksToDo,
+    getTasksDone,
     saveTask,
     softDelete,
+    updateToDone,
 } 
