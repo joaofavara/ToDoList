@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Axios from 'axios';
+import Axios from '../axios/index';
 
 Vue.use(Vuex);
 
@@ -19,11 +19,11 @@ export default new Vuex.Store({
   },
   actions: {
     async getTasksToDo({commit}) {
-      const result = await Axios.get('http://localhost:3000/api/task/toDo');
+      const result = await Axios.get('/api/task/toDo');
       commit('getTasksToDo', result.data);
     },
     async getTasksDone({commit}) {
-      const result = await Axios.get('http://localhost:3000/api/task/done');
+      const result = await Axios.get('/api/task/done');
       commit('getTasksDone', result.data);
     },
     async saveTask({commit}, taskTitle) {
@@ -32,15 +32,20 @@ export default new Vuex.Store({
         isDone: false,
         softDelete: false,
       }
-      await Axios.post('http://localhost:3000/api/task/saveTask', taskToCrate);
+      return await Axios.post('/api/task/saveTask', taskToCrate);
     },
     async softDelete ({commit}, id) {
-      const test = await Axios.post('http://localhost:3000/api/task/softDelete', { id });
+      const test = await Axios.post('/api/task/softDelete', { id });
       console.log('Teste ... ', test);
+
+      return test;
     },
     async updateToDone ({commit}, id) {
-      const test = await Axios.put('http://localhost:3000/api/task/updateToDone', { id });
-      console.log('Teste 2 ... ', test);
+      const test = await Axios.put('/api/task/updateToDone', { id });
+      const result = await Axios.get('/api/task/done');
+
+      console.log('Teste 2 ... ', result);
+      return test;
     }
   },
   modules: {

@@ -26,14 +26,16 @@ const saveTask = ( async (payload) => {
 const softDelete = (async (id) => {
     return await taskModel.findByIdAndUpdate(
         { _id: id }, 
-        { softDelete: true }
+        { softDelete: true },
+        { useFindAndModify: false }
     );
 });
 
 const updateToDone = (async (id) => {
     return await taskModel.findByIdAndUpdate(
         { _id: id }, 
-        { isDone: true }
+        { isDone: true },
+        { useFindAndModify: false }
     );
 });
 

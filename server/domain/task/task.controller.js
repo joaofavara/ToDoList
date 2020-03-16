@@ -20,7 +20,6 @@ const getTasksDone = ( async (req, res) => {
 
 const saveTask = ( async (req, res) => {
     try {
-        console.log('req.body >>> ', req.body);
         const { title, isDone, softDelete } = req.body;
         const result = await repositoy.saveTask({title, isDone, softDelete});
         console.log(result);
@@ -34,7 +33,7 @@ const softDelete = (async (req, res) => {
     try {
         const { id } = req.body;
         const result = await repositoy.softDelete(id);
-        return result
+        return res.status(200).json(result);
     } catch(err) {
         console.log(err);
     }
@@ -44,7 +43,7 @@ const updateToDone = (async (req, res) => {
     try {
         const { id } = req.body;
         const result = await repositoy.updateToDone(id);
-        return result
+        return res.status(200).json(result);
     } catch(err) {
         console.log(err);
     }

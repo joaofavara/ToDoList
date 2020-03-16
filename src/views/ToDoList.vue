@@ -15,8 +15,8 @@
             </div>
         </div>
         <div class="box-todo">
-            <div class="todo" v-for="item in tasks">
-                <span> {{ item.title }} </span>
+            <div class="todo" v-for="item in tasks" :key="item._id">
+                <span> {{ item.title }} - {{item._id}} </span>
                 <div class="buttons-todo">
                     <button class="button is-success is-small is-outlined" v-on:click="updateToDoneTaks(item._id)">Done</button>
                     <button class="button is-danger is-small is-outlined" v-on:click="softDeleteTask(item._id)">Remove</button>
@@ -62,23 +62,36 @@ export default {
         },
         async softDeleteTask(id) {
             await this.softDelete(id);
-            await this.getTasksToDo();
+            if (this.typeTask === "todo") {
+                await this.getTasksToDo();
+            } else {
+                await this.getTasksDone();
+            }
         },
         async updateToDoneTaks(id) {
-            console.log('Start ...');
             await this.updateToDone(id);
-            console.log('Finished ...');
-            await this.getTasksToDo();
-            console.log('Start 2 ...');
+            if (this.typeTask === "todo") {
+                await this.getTasksToDo();
+            } else {
+                await this.getTasksDone();
+            }
         }
     },
     watch: {
-        typeTask: function() {
+        typeTask: async function() {
             if (this.typeTask === "todo") {
+                await this.getTasksToDo();
                 this.tasks = this.tasksToDo;
             } else {
+                await this.getTasksDone();
                 this.tasks = this.tasksDone;
             }
+        },
+        tasksToDo: function() {
+            this.tasks = this.tasksToDo;
+        },
+        tasksDone: function() {
+            this.tasks = this.tasksDone;
         },
     },
     async mounted() {
