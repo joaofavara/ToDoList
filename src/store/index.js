@@ -27,6 +27,7 @@ export default new Vuex.Store({
       commit('getTasksDone', result.data);
     },
     async saveTask({commit}, taskTitle) {
+      // console.log('store - saveTask >>> ', taskTitle);
       const taskToCrate = {
         title: taskTitle,
         isDone: false,

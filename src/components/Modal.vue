@@ -4,10 +4,13 @@
     <div class="modal-content">
       <div class="field">
         <div class="control">
-          <textarea v-model="textarea" class="textarea is-primary" placeholder="Task ..."></textarea>
+          <span>Task: </span>
+          <input class="input" v-model="task" type="text" placeholder="Task ... ">
+          <div class="button-box">
+            <button class="button save is-normal" v-on:click="createTask()">Save</button>
+            <button class="button cancel is-normal" v-on:click="toggleModal()">Cancel</button>
+          </div>
         </div>
-        <button class="button is-success is-small" v-on:click="createTask()">Create</button>
-        <button class="button is-danger is-small" v-on:click="toggleModal()">Cancel</button>
     </div>
     </div>
     <button class="modal-close is-large" v-on:click="toggleModal()" aria-label="close"></button>
@@ -20,16 +23,17 @@ export default {
   props: ['openModal'],
   data() {
     return {
-      textarea: null,
+      task: null,
     }
   },
   methods: {
     toggleModal() {
-      this.$emit('closeModal')
+      this.$emit('toggleModal')
     },
     createTask() {
-      this.$emit('createTask', this.textarea);
-      this.textarea = null;
+      console.log('task >>> ', this.task);
+      this.$emit('createTask', this.task);
+      this.task = null;
     },
   },
 };
@@ -37,7 +41,30 @@ export default {
 
 <style lang="scss">
     .modal-content {
-       background-color: none;
+       background-color: white;
+       border-radius: 8px;
+       padding: 20px;
        width: 60%;
+
+       .button-box {
+        // border: 1px solid red;
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+        
+        button {
+          border-radius: 8px;
+          margin: 3px;
+
+          &.save {
+            background-color: #a7f0ba;
+          }
+
+          &.cancel {
+            background-color: #ff8389;
+          }
+        }
+       }
+
     }
 </style>
