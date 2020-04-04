@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import ToDoList from '@/views/ToDoList.vue';
 const NewToDoList = () => import('@/views/NewToDoList.vue');
 const ListTaskToDo = () => import('@/components/ListTaskToDo.vue');
 const ListTaskDone = () => import('@/components/ListTaskDone.vue');
@@ -9,11 +8,6 @@ const ProgressBar = () => import('@/components/ProgressBar.vue');
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'ToDoList',
-  //   component: ToDoList,
-  // },
   {
     path: '/',
     name: 'NewToDoList',

@@ -26,7 +26,7 @@ export default {};
     }
 
     &:indeterminate {
-        background-image: linear-gradient(to right, #a56eff 30%, #ededed 30%);
+        background-image: linear-gradient(to right, #78a9ff 30%, #ededed 30%);
     }
     
   }
