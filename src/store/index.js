@@ -18,7 +18,6 @@ export default new Vuex.Store({
   },
   actions: {
     async getTasksToDo({commit}) {
-      console.log('vue.prototype.$http >>> ', Vue.prototype);
       const result = await Vue.prototype.$http.get('/task/toDo');
       commit('getTasksToDo', result.data);
     },

@@ -20,6 +20,10 @@ const routes = [
   {
     path: '/progressBar',
     component: ProgressBar,
+  },
+  {
+    path: '*',
+    redirect: '/todo'
   }
 ];
 
